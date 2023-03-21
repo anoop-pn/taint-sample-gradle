@@ -11,10 +11,9 @@ plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
     id 'java-library'
-    id 'org.checkerframework' version '0.6.16'
+    id 'org.checkerframework' version '0.6.25'
 }
 
-apply plugin: 'org.checkerframework'
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -22,15 +21,16 @@ repositories {
     mavenLocal()
 }
 
-// checkerFramework {
-//     checkers = [
-//             'org.checkerframework.checker.tainting.TaintingChecker',
-//             //'org.checkerframework.checker.tainting.TaintingChecker'
-//     ]
-//     extraJavacArgs = [
-//             '-Astubs=' + projectDir + '/stubs'
-//     ]
-// }
+checkerFramework {
+    checkers = [
+            'edu.ucr.cs.riple.taint.ucrtainting.UCRTaintingChecker',
+    ]
+    extraJavacArgs = [
+            '-Awarns',
+            '-AannotatedPackages=com.test',
+            '-AenableCustomCheck=false'
+    ]
+}
 
 dependencies {
     // This dependency is used by the application.
